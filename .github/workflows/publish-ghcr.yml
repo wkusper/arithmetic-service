@@ -17,3 +17,8 @@ jobs:
            docker login --username wkusper --password ${{secrets.ACCESS_TOKEN}} ghcr.io
            docker build -t ghcr.io/wkusper/arithmetic-service:latest --file Dockerfile .
            docker push ghcr.io/wkusper/arithmetic-service:latest
+      - name: Publish the image to azure container registry
+        run: |
+           docker login --username practicm15 --password ${{secrets.AZURE_CONTAINER_REGISTRY}} practicm15.azurecr.io
+           docker tag -t ghcr.io/wkusper/arithmetic-service:1  practicm15.azurecr.io/arithmetic-service:1
+           docker push practicm15.azurecr.io/arithmetic-service:1
